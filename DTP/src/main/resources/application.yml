@@ -1,0 +1,18 @@
+# springboot配置
+server:
+  port: 8001
+
+# 开启阿波罗绑定远程项目的地址
+app:
+  id: threadpool-test-frank
+apollo:
+  meta: http://106.54.227.205:8080
+  bootstrap:
+    enabled: true
+    eagerLoad:
+      enabled: true
+
+#这里说明在将该项目 com目录下的日志，都采用info模式输出
+logging:
+  level:
+    com: info
