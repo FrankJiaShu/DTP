@@ -1,4 +1,4 @@
-package com.frank.dtp;
+package com.frank;
 
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +10,7 @@ public class DtpApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(DtpApplication.class, args);
+        System.out.println("DTP started!");
     }
 
 }
