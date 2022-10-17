@@ -1,13 +1,14 @@
 package com.frank.controller;
 
 import com.frank.pool.DynamicThreadExecutor;
+import com.frank.service.GenerateService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -18,8 +19,10 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @RestController
 public class TestController {
-    @Resource
+    @Autowired
     private DynamicThreadExecutor dynamicThreadExecutor;
+    @Autowired
+    private GenerateService generateService;
 
     // 获取配置的参数信息
     @Value("${corePoolSize}")
@@ -54,5 +57,10 @@ public class TestController {
     @GetMapping("/info")
     public String getInfo() {
         return dynamicThreadExecutor.getInfo("orderProcess");
+    }
+
+    @RequestMapping("/generate")
+    public String generateId() {
+        return generateService.generate();
     }
 }
