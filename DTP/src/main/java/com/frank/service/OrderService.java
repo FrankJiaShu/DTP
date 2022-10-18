@@ -1,16 +1,19 @@
 package com.frank.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 
+@Slf4j
 @Service
-public class GenerateService {
+public class OrderService {
     @Autowired
     private RedisService redisService;
-    private static final Long EXPIRE = (long) 60 * 60 * (24 + 12);    // 超时时间
+    private static final Long EXPIRE = (long) 60 * 60 * 36;    // 超时时间
 
+    // 生成订单号
     public String generate() {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -24,6 +27,18 @@ public class GenerateService {
             redisService.set(key, 0, EXPIRE);
             incr = redisService.incr(key, 1);
         }
-        return "生成订单号为：" + key + "-" +incr;
+        return key + "-" +incr;
+    }
+
+    // 校验全局流水号
+    public boolean validSeqNo(long seqNo) {
+        String key = seqNo+"";
+        log.info("开始校验全局流水号...");
+        if (redisService.hasKey(key)) { // 存在
+            return true;
+        } else { // 不存在就放入 注意设置超时时间
+            redisService.set(key, 0, EXPIRE);
+            return false;
+        }
     }
 }
