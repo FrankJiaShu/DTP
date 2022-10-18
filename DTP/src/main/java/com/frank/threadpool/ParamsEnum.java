@@ -1,4 +1,4 @@
-package com.frank.pool;
+package com.frank.threadpool;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

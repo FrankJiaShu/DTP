@@ -1,4 +1,4 @@
-package com.frank.pool;
+package com.frank.threadpool;
 
 import org.springframework.stereotype.Component;
 

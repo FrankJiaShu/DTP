@@ -1,6 +1,6 @@
 package com.frank.controller;
 
-import com.frank.pool.DynamicThreadExecutor;
+import com.frank.threadpool.DynamicThreadExecutor;
 import com.frank.service.GenerateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +36,7 @@ public class TestController {
 
     @GetMapping("/config")
     public String getConfig() {
+        log.info("查询阿波罗配置中心...");
         return "配置中心情况: " + corePoolSize + ", " + maximumPoolSize + ", "
                 + keepAliveTime + ", " + workQueueSize;
     }
@@ -51,16 +52,17 @@ public class TestController {
                 e.printStackTrace();
             }
         });
-
     }
 
     @GetMapping("/info")
     public String getInfo() {
+        log.info("获取当前线程池参数信息...");
         return dynamicThreadExecutor.getInfo("orderProcess");
     }
 
     @RequestMapping("/generate")
     public String generateId() {
+        log.info("开始生成今日订单...");
         return generateService.generate();
     }
 }

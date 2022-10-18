@@ -1,6 +1,6 @@
 package com.frank.dtp;
 
-import com.frank.pool.DynamicThreadExecutor;
+import com.frank.threadpool.DynamicThreadExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
